@@ -1,0 +1,14 @@
+@startmindmap
+
+title NatPenetration
+
+* <&flag>NatPenetration
+** 管理员模块
+*** 密码登录
+** 核心模块管理
+*** 客户端
+*** 服务端
+
+center footer getcharzp
+
+@endmindmap
