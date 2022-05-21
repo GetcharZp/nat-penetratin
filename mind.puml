@@ -6,9 +6,9 @@ title NatPenetration
 ** 管理员模块
 *** 密码登录
 ** 测试的服务
-*** 使用http包搭建一个简易的web服务
+*** √ 使用http包搭建一个简易的web服务
 ** 核心模块管理
-*** 客户端
+*** √ 客户端
 *** 服务端
 
 center footer getcharzp

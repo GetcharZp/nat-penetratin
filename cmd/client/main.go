@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"io"
 	"log"
 	"nat-pernetration/define"
@@ -12,14 +13,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("[连接成功]：%v", conn.RemoteAddr().String())
 	for {
-		b, err := helper.GetDataFromConnection(define.BufSize, conn)
+		s, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {
-			log.Printf("Get Data Error:%v", err)
+			log.Printf("Get Data Error:%v\n", err)
 			continue
 		}
 		// New Connection
-		if string(b) == define.NewConnection {
+		if s == define.NewConnection {
 			go messageForward()
 		}
 	}

@@ -48,7 +48,7 @@ func GetDataFromConnection(bufSize int, conn *net.TCPConn) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		b = append(b, buf...)
+		b = append(b, buf[:n]...)
 		if n < bufSize {
 			break
 		}
