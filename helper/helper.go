@@ -38,3 +38,20 @@ func KeepAlive(conn *net.TCPConn) {
 		time.Sleep(time.Second * 3)
 	}
 }
+
+// GetDataFromConnection 获取Connection中的数据
+func GetDataFromConnection(bufSize int, conn *net.TCPConn) ([]byte, error) {
+	b := make([]byte, 0)
+	for {
+		buf := make([]byte, bufSize)
+		n, err := conn.Read(buf)
+		if err != nil {
+			return nil, err
+		}
+		b = append(b, buf...)
+		if n < bufSize {
+			break
+		}
+	}
+	return b, nil
+}
