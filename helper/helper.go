@@ -1,7 +1,10 @@
 package helper
 
 import (
+	"gopkg.in/yaml.v3"
+	"io/ioutil"
 	"log"
+	"nat-pernetration/conf"
 	"nat-pernetration/define"
 	"net"
 	"time"
@@ -54,4 +57,18 @@ func GetDataFromConnection(bufSize int, conn *net.TCPConn) ([]byte, error) {
 		}
 	}
 	return b, nil
+}
+
+// GetServerConf 解析 server.yaml
+func GetServerConf() (*conf.Server, error) {
+	s := new(conf.Server)
+	b, err := ioutil.ReadFile("./conf/server.yaml")
+	if err != nil {
+		return nil, err
+	}
+	err = yaml.Unmarshal(b, s)
+	if err != nil {
+		return nil, err
+	}
+	return s, err
 }

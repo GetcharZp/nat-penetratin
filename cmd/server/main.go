@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"nat-pernetration/define"
@@ -21,6 +22,8 @@ func main() {
 	go userRequestListen()
 	// 隧道监听
 	go tunnelListen()
+	// 启动Web服务
+	go runGin()
 	wg.Wait()
 }
 
@@ -76,4 +79,18 @@ func tunnelListen() {
 		go io.Copy(userConn, conn)
 		go io.Copy(conn, userConn)
 	}
+}
+
+func runGin() {
+	r := gin.Default()
+	serverConf, err := helper.GetServerConf()
+	if err != nil {
+		return
+	}
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	r.Run(serverConf.Web.Port)
 }
