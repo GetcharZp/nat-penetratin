@@ -2,6 +2,8 @@
 > 内网穿透工具
 > 
 > 技术栈：Golang、Gin
+> 
+> B站视频地址：https://www.bilibili.com/video/BV1p3411K7rn/
 
 ## 成熟的框架
 1、[Ngrok](https://ngrok.com/) 免费版有连接时长限制
