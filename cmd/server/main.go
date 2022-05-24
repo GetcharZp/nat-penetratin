@@ -6,6 +6,7 @@ import (
 	"log"
 	"nat-pernetration/define"
 	"nat-pernetration/helper"
+	"nat-pernetration/service"
 	"net"
 	"sync"
 )
@@ -87,10 +88,8 @@ func runGin() {
 	if err != nil {
 		return
 	}
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	// 用户登录
+	r.POST("/login", service.Login)
+
 	r.Run(serverConf.Web.Port)
 }

@@ -5,7 +5,7 @@ title NatPenetration
 * <&flag>NatPenetration
 ** 管理员模块
 *** √ Web服务端搭建
-*** 密码登录
+*** √ 密码登录
 ** √ 测试的服务
 *** √ 使用http包搭建一个简易的web服务
 ** √ 核心模块管理
