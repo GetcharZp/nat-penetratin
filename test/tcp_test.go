@@ -1,6 +1,7 @@
 package test
 
 import (
+	"log"
 	"net"
 	"testing"
 )
@@ -12,6 +13,7 @@ const (
 
 // 监听
 func TestTcpListen(t *testing.T) {
+	log.Println("Tcp Server Running")
 	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
 		t.Fatal(err)
@@ -26,19 +28,21 @@ func TestTcpListen(t *testing.T) {
 			t.Fatal(err)
 		}
 		// 读取数据
+		data := make([]byte, 0)
 		for {
 			var buf [bufSize]byte
 			n, err := tcpConn.Read(buf[:])
 			if err != nil {
 				t.Fatal(err)
 			}
-			t.Log(string(buf[:n]))
+			data = append(data, buf[:n]...)
 			if n < bufSize {
 				break
 			}
 		}
+		log.Println("Receive Data : ", string(data))
 		// 写数据
-		tcpConn.Write([]byte("hello world, 你好世界"))
+		tcpConn.Write([]byte(data))
 	}
 }
 
@@ -52,15 +56,17 @@ func TestCreateTcp(t *testing.T) {
 	// 写数据
 	tcpConn.Write([]byte("Client ==> hello world, 你好世界"))
 	// 读取数据
+	data := make([]byte, 0)
 	for {
 		var buf [bufSize]byte
 		n, err := tcpConn.Read(buf[:])
 		if err != nil {
 			t.Fatal(err)
 		}
-		t.Log(string(buf[:n]))
+		data = append(data, buf[:n]...)
 		if n < bufSize {
 			break
 		}
 	}
+	log.Println("Send Data : ", string(data))
 }
