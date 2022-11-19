@@ -6,9 +6,17 @@ import (
 	"log"
 	"nat-pernetration/define"
 	"nat-pernetration/helper"
+	"time"
 )
 
 func main() {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Printf("[CLIENT] RUN ERROR : %v\n", err)
+			time.Sleep(time.Second * 3)
+			main()
+		}
+	}()
 	conn, err := helper.CreateConn(define.ControlServerAddr)
 	if err != nil {
 		panic(err)
@@ -17,8 +25,7 @@ func main() {
 	for {
 		s, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {
-			log.Printf("Get Data Error:%v\n", err)
-			continue
+			panic(err)
 		}
 		// New Connection
 		if s == define.NewConnection {
